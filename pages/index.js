@@ -1,62 +1,79 @@
 import Head from "next/head";
+import React from "react";
+import axios from "axios";
+import useSWR from "swr";
 
-const Home = () => (
-  <div className="container">
-    <Head>
-      <title>Saturnin App</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+const Home = () => {
+  const { data } = useSWR("/api/increment", (url) =>
+    axios.get(url).then((res) => res)
+  );
 
-    <main>
-      <h1 className="title">Saturnin app is coming!</h1>
-    </main>
+  return (
+    <div className="container">
+      <Head>
+        <title>Saturnin App</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-    <style jsx>{`
-      .container {
-        min-height: 100vh;
-        padding: 0 0.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
+      <main>
+        <h1 className="title">Saturnin app is coming!</h1>
+        <h3 className="subtitle">{data?.data?.visits} visitors</h3>
+      </main>
 
-      main {
-        padding: 5rem 0;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
+      <style jsx>{`
+        .container {
+          min-height: 100vh;
+          padding: 0 0.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
+        main {
+          padding: 5rem 0;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
 
-      .title {
-        margin: 0;
-        line-height: 1.15;
-        font-size: 4rem;
-        text-align: center;
-      }
-    `}</style>
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
 
-    <style jsx global>{`
-      html,
-      body {
-        padding: 0;
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-      }
+        .title {
+          margin: 0;
+          line-height: 1.15;
+          font-size: 4rem;
+          text-align: center;
+        }
 
-      * {
-        box-sizing: border-box;
-      }
-    `}</style>
-  </div>
-);
+        .subtitle {
+          font-size: 1rem;
+          margin-top: 3rem;
+          text-align: center;
+        }
+      `}</style>
+
+      <style jsx global>{`
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+            sans-serif;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+      `}</style>
+    </div>
+  );
+};
 
 export default Home;

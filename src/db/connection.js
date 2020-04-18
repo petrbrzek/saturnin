@@ -1,9 +1,11 @@
 const Redis = require("ioredis");
 
 class DB {
-  _redis = new Redis({
-    password: process.env.REDIS_PASS || "",
-  });
+  constructor() {
+    this._redis = new Redis({
+      password: process.env.REDIS_PASS || "",
+    });
+  }
 
   get redis() {
     return this._redis;
@@ -19,5 +21,7 @@ class DB {
   }
 }
 
-export const instance = new DB();
-export const { redis } = instance;
+module.exports = {
+  redis: new DB().getInstance(),
+  subscriber: new DB().getInstance(),
+};

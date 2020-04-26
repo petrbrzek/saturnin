@@ -4,4 +4,4 @@ require("@babel/register")({
   ignore: ["node_modules", ".next"],
 });
 
-require("./server.js");
+require("./server/server.js");

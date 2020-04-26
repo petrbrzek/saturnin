@@ -1,7 +1,9 @@
+import { App } from "@slack/bolt";
+
 import HomeView from "../blocks/home-view";
 
-export default function createSurveyView(app) {
-  app.view("createSurveyView", async ({ ack, body, view, context }) => {
+export default function createSurveyView(app: App) {
+  app.view("createSurveyView", async ({ ack, body, view }) => {
     // Acknowledge the view_submission event
     await ack();
 
@@ -21,7 +23,7 @@ export default function createSurveyView(app) {
           type: "home",
           callback_id: "home_view",
           /* body of the view */
-          blocks: HomeView({ name: val.value }),
+          blocks: HomeView({ name: val.value }) as any,
         },
       });
       console.log("createSurveyView:publish", result);

@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "dist",
+    "target": "es2017",
+    "noEmit": false,
+    "noUnusedLocals": false,
+    "jsx": "react"
+  },
+  "include": ["server/**/*.ts"]
+}

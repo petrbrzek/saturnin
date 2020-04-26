@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node startup.js",
-    "build": "next build",
+    "dev": "nodemon",
+    "build": "next build && tsc --project tsconfig.server.json",
     "start": "npm run build; cross-env NODE_ENV=production node startup.js"
   },
   "dependencies": {
     "@slack/bolt": "^2.0.0",
     "@speee-js/jsx-slack": "^1.7.0",
+    "@types/ioredis": "^4.14.9",
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
@@ -23,6 +24,11 @@
     "@babel/plugin-transform-modules-commonjs": "^7.9.0",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
     "@babel/preset-env": "^7.9.5",
-    "@babel/register": "^7.9.0"
+    "@babel/register": "^7.9.0",
+    "@types/node": "^13.13.0",
+    "@types/react": "^16.9.34",
+    "nodemon": "^2.0.3",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
   }
 }

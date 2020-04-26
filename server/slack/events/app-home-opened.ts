@@ -1,6 +1,8 @@
+import { App } from "@slack/bolt";
+
 import HomeView from "../blocks/home-view";
 
-export default function appHomeOpened(app) {
+export default function appHomeOpened(app: App) {
   app.event("app_home_opened", async ({ event }) => {
     console.log("event", event);
     try {
@@ -13,7 +15,7 @@ export default function appHomeOpened(app) {
           type: "home",
           callback_id: "home_view",
           /* body of the view */
-          blocks: HomeView({}),
+          blocks: HomeView({}) as any,
         },
       });
     } catch (error) {

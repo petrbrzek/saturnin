@@ -1,22 +1,22 @@
 require("dotenv").config();
 
-const next = require("next");
-const { App, ExpressReceiver } = require("@slack/bolt");
-const { WebClient } = require("@slack/web-api");
+import next from "next";
+import { App, ExpressReceiver } from "@slack/bolt";
+import { WebClient } from "@slack/web-api";
 
-const { slackEvents } = require("./src/slack");
-const { authorize } = require("./src/slack/autorize");
+import { slackEvents } from "./slack";
+import { authorize } from "./slack/autorize";
 
-const { redis, subscriber } = require("./src/db/connection");
+import { redis, subscriber } from "./db/connection";
 
-const port = parseInt(process.env.PORT, 10) || 3000;
+const port = parseInt(process.env.PORT || "3000", 10);
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
 nextApp.prepare().then(() => {
   const server = new ExpressReceiver({
-    signingSecret: process.env.SLACK_SIGNING_SECRET,
+    signingSecret: process.env.SLACK_SIGNING_SECRET as string,
   });
 
   const app = new App({
@@ -27,6 +27,7 @@ nextApp.prepare().then(() => {
 
   slackEvents(app);
 
+  // @ts-ignore
   subscriber.subscribe("__keyevent@0__:expired", (err) => {
     if (err) {
       console.error(err);
@@ -34,6 +35,8 @@ nextApp.prepare().then(() => {
     }
     console.log("calling callback");
   });
+
+  // @ts-ignore
   subscriber.on("message", function(channel, eventName) {
     console.log("Receive message %s from channel %s", eventName, channel);
 

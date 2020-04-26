@@ -1,9 +1,11 @@
-export default function hello(app) {
-  return app.message("hello", ({ message, say }) => {
+import { App } from "@slack/bolt";
+
+export default function hello(app: App) {
+  app.message("hello", async ({ message, say }) => {
     console.log("vola se");
     // say() sends a message to the channel where the event was triggered
     say({
-      text: null,
+      text: "",
       blocks: [
         {
           type: "section",

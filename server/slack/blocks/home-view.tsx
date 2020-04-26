@@ -8,7 +8,7 @@ import JSXSlack, {
   Section,
 } from "@speee-js/jsx-slack";
 
-export default function HomeView({ name }) {
+export default function HomeView({ name }: { name?: string }) {
   return (
     <Blocks>
       <Actions>
